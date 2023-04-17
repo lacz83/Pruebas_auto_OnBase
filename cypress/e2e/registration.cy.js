@@ -73,7 +73,7 @@ beforeEach('Pruebas', ()=> {
                             cy.get('#centrodecostogeneral126_input').should('not.be.visible')
                             cy.wait(2000)
 
-                            //Si el tipo de servicio es operador logístico
+                            //Si el tipo de servicio es operador logísticos
                             cy.get('#tipodeservicio122_input').clear()
                             cy.get('#tipodeservicio122_input').type('OPERADOR LOGÍSTICO', {force: true})
                             cy.get('#generarcomunicación164_input').click()
