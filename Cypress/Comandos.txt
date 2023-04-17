@@ -1,0 +1,11 @@
+cypress open
+cypress run --headed
+cypress run --headless
+https://github.com/cypress-io/cypress
+https://angular-6-registration-login-example.stackblitz.io/register
+
+
+
+
+
+
