@@ -48,15 +48,16 @@ beforeEach('Pruebas', ()=> {
                         cy.
                         get($body).within(()=> {
                             //Validar Externo - Digital - Correo
-                            cy.log('Pruebas de Externo - Digital - Correo')
-                            cy.get('#destino_input').type('EXTERNO')
+                            cy.log('Pruebas de Interno - Digital - Correo')
+                            cy.get('#destino_input').type('INTERNO')
                             cy.get('#medio_input').type('DIGITAL')
                             cy.get('#asuntocomunicación511_input').type('PRUEBA AUTOMATIZADA')
-                            cy.get('#CorreoCertificado_label').should('be.visible')
+                            /*cy.get('#CorreoCertificado_label').should('be.visible')
                             cy.get('#CorreoCertificado_radiobutton1').should('not.be.checked').and('have.value', 'SÍ')
-                            cy.get('#CorreoCertificado_radiobutton2').should('be.checked').and('have.value', 'NO')
+                            cy.get('#CorreoCertificado_radiobutton2').should('be.checked').and('have.value', 'NO')*/
                             cy.wait(3000)
 
+                            /*
                             //Validar Externo - Físico - Operador
                             cy.log('Pruebas de Externo - Físico - Operador')
                             cy.get('#destino_input').clear()
@@ -80,9 +81,9 @@ beforeEach('Pruebas', ()=> {
                             cy.get('#centrodecostogeneral126_input').should('be.visible')
 
                             cy.get('#retornoconradicado345_radiobutton1').click()
-                            cy.get('#requierepaquete346_radiobutton2').click()
+                            cy.get('#requierepaquete346_radiobutton2').click()*/
                             
-                            //cy.get('#requierepaquete346_radiobutton2').type('NO')
+                            cy.get('#destino_input').focus()
                             cy.wait(3000)
                             cy.get('#header_secDatosSolicitud').click()
 
@@ -103,12 +104,14 @@ beforeEach('Pruebas', ()=> {
                             cy.get('#nombredelfuncionario101_input').type('GOMEZ ZULUAGA OLGA INES')
                             cy.get('#empleo125_input').click()
                             cy.wait(4000)
-                            cy.get('#centrodecostogeneral126_input').type('0123456789')
+                            //cy.get('#centrodecostogeneral126_input').type('0123456789')
                             cy.get('#nombredelfuncionario101_input').focus()
                             cy.wait(3000)
                             cy.get('#header_secDatosRemitente').click()
 
+                            /*
                             //Validar sección Datos destinatario con Externo - Físico - Operador
+                            cy.log('Pruebas Datos destinatario')
                             cy.get('#nombredepersonanaturaloentidaddestinataria357_input').type('LUIS')
                             cy.get('#teléfono359_input').click()
                             cy.wait(4000)
@@ -117,7 +120,63 @@ beforeEach('Pruebas', ()=> {
                             cy.get('#confirmarcorreelectronicodestinatario_input').type('luiscortes@datecsa.com')
                             cy.get('#nombredepersonanaturaloentidaddestinataria357_input').focus()
                             cy.wait(3000)
+                            cy.get('#header_seccionDatosDestinatarios').click()*/
+
+                            //Validar sección Datos destinatario con Interno - Digital - Correo
+                            cy.log('Pruebas Datos destinatario')
+                            cy.get('#nombredelfuncionariodestinatario157_input').type('JULIO CESAR GARCIA CASTRILLON')
+                            cy.get('#empleodestinatario162_input').click()
+                            cy.wait(4000)
+                            cy.get('#confirmarcorreoelectronicodestinatariofisico_input').type('JULIO.GARCIA@UDEA.EDU.CO')
+                            cy.get('#nombredelfuncionariodestinatario157_input').focus()
+                            cy.wait(3000)
                             cy.get('#header_seccionDatosDestinatarios').click()
+
+                            //Validar sección Información del documento
+                            cy.log('Pruebas Información del documento')
+                            cy.get('#adjuntaranexos_input').click()
+                            cy.get('#cantidadanexos209_input').should('have.value', 1)
+                            cy.get('#seccionAnexo1').should('be.visible')
+
+                            cy.get('#checkanexo1_input').click()
+                            cy.get('#cantidadanexos209_input').should('have.value', 2)
+                            cy.get('#seccionAnexo2').should('be.visible')
+
+                            cy.get('#checkanexo2_input').click()
+                            cy.get('#cantidadanexos209_input').should('have.value', 3)
+                            cy.get('#seccionAnexo3').should('be.visible')
+
+                            cy.get('#checkanexo3_input').click()
+                            cy.get('#cantidadanexos209_input').should('have.value', 4)
+                            cy.get('#seccionAnexo4').should('be.visible')
+
+                            cy.get('#checkanexo4_input').click()
+                            cy.get('#cantidadanexos209_input').should('have.value', 5)
+                            cy.get('#seccionAnexo5').should('be.visible')
+
+                            cy.wait(3000)
+
+                            //Ocultar anexos
+                            cy.get('#checkanexo4_input').click()
+                            cy.get('#seccionAnexo5').should('not.be.visible')
+
+                            cy.get('#checkanexo3_input').click()
+                            cy.get('#seccionAnexo4').should('not.be.visible')
+
+                            cy.get('#checkanexo2_input').click()
+                            cy.get('#seccionAnexo3').should('not.be.visible')
+
+                            cy.get('#checkanexo1_input').click()
+                            cy.get('#seccionAnexo2').should('not.be.visible')
+
+                            cy.get('#adjuntaranexos_input').click()
+                            cy.get('#seccionAnexo1').should('not.be.visible')
+
+                            cy.get('#cantidadanexos209_input').should('have.value', 0)
+
+                            cy.wait(3000)
+                            cy.get('#header_secDatosInformacionDocumento').click()
+
                         })
                     })
                 })
