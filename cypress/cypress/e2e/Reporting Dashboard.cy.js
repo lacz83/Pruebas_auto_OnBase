@@ -16,7 +16,7 @@ describe('Validar un reporte', () => {
     cy.wait(3000)
 
     //Ingresar a Reporting Dashboard
-    cy.log('Se ingresa a Reporting Dashboard')
+    cy.log('Se ingresa a Compartidos conmigo')
     cy.get('#NavPanelIFrame').then(($iframe) => {
       const $body = $iframe.contents().find('body')
       cy
@@ -51,7 +51,7 @@ describe('Validar un reporte', () => {
       cy
         .get($body).within(() => {
           const fecha = new Date();
-          const fechaActual = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getFullYear()
+          const fechaActual = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear()
           cy.get('#dp216_ukeyword228_udaterange_u1_fromDate_fromDate_date').type('01/01/2023')
           cy.get('#dp216_ukeyword228_udaterange_u1_toDate_toDate_date').type(fechaActual)
         })
@@ -88,9 +88,7 @@ describe('Validar un reporte', () => {
     cy.wait(3000)
   })
 
-  it('Ingreso al reporte - Solicitudes a la Dirección Jurídica', () => {
-    //UNIDAD DE ASESORÍA EN CONTRATOS Y CONVENIOS - UNIDAD DE REPRESENTACIÓN Y DEFENSA JURÍDICA INSTITUCIONAL'
-
+  it.only('Ingreso al reporte - Solicitudes a la Dirección Jurídica', () => {
     cy.log('Se ingresa a la categoría y reporte - Solicitudes a la Dirección Jurídica')
     cy.get('#NavPanelIFrame').then(($iframe) => {
       const $body = $iframe.contents().find('body')
@@ -112,12 +110,13 @@ describe('Validar un reporte', () => {
       cy
         .get($body).within(() => {
           const fecha = new Date();
-          const fechaActual = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getFullYear()
+          const fechaActual = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear()
           cy.get('#dp218_ufecha_udaterange_u1_fromDate_fromDate_date').type('01/01/2023')
           cy.get('#dp218_ufecha_udaterange_u1_toDate_toDate_date').type(fechaActual)
           cy.get('#218_uunidadDireccion_dipParameterDDList_d1')
             .select('UNIDAD DE ASESORÍA JURÍDICA INSTITUCIONAL')
             .should('have.value', 'UNIDAD DE ASESORÍA JURÍDICA INSTITUCIONAL')
+          //UNIDAD DE ASESORÍA EN CONTRATOS Y CONVENIOS - UNIDAD DE REPRESENTACIÓN Y DEFENSA JURÍDICA INSTITUCIONAL'
         })
     })
     cy.get('[name="btnOk"]').click()
@@ -142,7 +141,8 @@ describe('Validar un reporte', () => {
                 })
                 cy.get('.dx-datagrid-rowsview.dx-datagrid-nowrap.dx-scrollable.dx-scrollable-customizable-scrollbars.'
                   + 'dx-scrollable-both.dx-scrollable-simulated.dx-visibility-change-handler').within(() => {
-                    cy.get('tr').first().dblclick()
+                    //cy.get('tr').first().dblclick()
+                    cy.get('tr').should('contain','2023-114-I')
                   })
               })
           })

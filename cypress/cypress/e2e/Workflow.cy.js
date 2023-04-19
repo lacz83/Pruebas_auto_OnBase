@@ -1,6 +1,6 @@
 describe("Validación flujo de comunicaciones", () => {
     beforeEach('Pruebas de Workflow', () => {
-        cy.visit('http://srvonbasepruws.udea.local/Appnet/Workflow/WFLogin.aspx?LifeCycleID=105&QueueID=128')
+        cy.visit('http://srvonbasepruws.udea.local/Appnet/Workflow/WFLogin.aspx?')
         cy.wait(1000)
         cy.contains('Iniciar sesión')
         cy.get('#form1').within(() => {
