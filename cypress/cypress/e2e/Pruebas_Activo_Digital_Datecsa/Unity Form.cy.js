@@ -56,7 +56,7 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
                                     const valorEmpresa = 'EMPRESA A'
 
                                     const version_Tomo = 1
-                                    const valorVersion = 1
+                                    const valorVersion_Tomo = 1
 
                                     const unidadProductora = 'JURIDICA'
                                     const valorunidadProductora = 'JURIDICA'
@@ -100,7 +100,7 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
                                     cy.get('#versióntrd111_input').focus()
                                     cy.wait(1000)
                                     cy.get('#versióntrd111_input').type(version_Tomo)
-                                    cy.get('#versióntrd111_input').should('have.value', valorVersion)
+                                    cy.get('#versióntrd111_input').should('have.value', valorVersion_Tomo)
 
                                     cy.get('#nombreunidaddependencia_input').focus()
                                     cy.wait(1000)
@@ -188,10 +188,10 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
                     })
                 })
         })
+        //cy.get('.dialog-button').contains('No').click()
+        //cy.wait(3000)
         cy.get('#realNameDiv').click()
         cy.contains('Logout').click()
         cy.get('button').contains('Log Out').click()
-        //cy.get('.dialog-button').contains('No').click()
-        //cy.wait(3000)
     })
 })
