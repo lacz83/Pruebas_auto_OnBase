@@ -50,7 +50,7 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
                             const $body = $iframe.contents().find('body')
                             cy.
                                 get($body).within(() => {
-                                    
+
                                     //#region Constantes
                                     const empresa = 'EMPRESA A'
                                     const valorEmpresa = 'EMPRESA A'
@@ -70,13 +70,11 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
                                     const fecha = new Date();
                                     const añoActual = fecha.getFullYear()
 
-                                    const fechaHoraActual =  fecha.toLocaleString('en-US');
+                                    const fechaHoraActual = fecha.toLocaleString('en-US');
 
                                     const fechaFutura = new Date();
                                     fechaFutura.setDate(fechaFutura.getDate() + 1);
-                                    const fechaHoraFutura =  fechaFutura.toLocaleString('en-US');
-
-                                    const codigoExpediente = 'JURIDICA'
+                                    const fechaHoraFutura = fechaFutura.toLocaleString('en-US');
 
                                     const soporteExpediente = 'ELECTRONICO'
 
@@ -88,7 +86,9 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
 
                                     const nombreDocumento = 'DERECHO 1'
 
-                                    const valorNulo = null
+                                    const descripcionDocumento = 'Prueba automatizada'
+
+                                    const vacio = ''
                                     //#endregion
 
                                     //#region Valida sección Datos TRD
@@ -116,7 +116,7 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
                                     cy.wait(1000)
                                     cy.get('#nombredesubserie_input').type(subserie)
                                     cy.get('#nombredesubserie_input').should('have.value', valorSubserie)
-                                    
+
                                     //cy.get('[value="Limpiar"]').click()
                                     //#endregion
 
@@ -125,24 +125,24 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
 
                                     cy.get('#códigodeexpediente_input').focus()
                                     cy.wait(1000)
-                                    cy.get('#códigodeexpediente_input').type(codigoExpediente + añoActual)
-                                    cy.get('#códigodeexpediente_input').should('not.have.value', valorNulo)
+                                    cy.get('#códigodeexpediente_input').type(unidadProductora + '1' + añoActual)
+                                    cy.get('#códigodeexpediente_input').should('not.have.value', vacio)
 
                                     cy.get('#nombreexpediente_input').focus()
                                     cy.wait(1000)
-                                    cy.get('#nombreexpediente_input').type(codigoExpediente + ' ' + añoActual)
-                                    cy.get('#nombreexpediente_input').should('not.have.value', valorNulo)
+                                    cy.get('#nombreexpediente_input').type(unidadProductora + '1' + ' ' + añoActual)
+                                    cy.get('#nombreexpediente_input').should('not.have.value', vacio)
 
                                     cy.get('#númerodetomodelexpediente131_input').focus()
                                     cy.wait(1000)
                                     cy.get('#númerodetomodelexpediente131_input').type(version_Tomo)
-                                    cy.get('#númerodetomodelexpediente131_input').should('not.have.value', valorNulo)
+                                    cy.get('#númerodetomodelexpediente131_input').should('not.have.value', vacio)
 
                                     cy.get('#soporteexpediente115_input').focus()
                                     cy.wait(1000)
                                     cy.get('#soporteexpediente115_input').type(soporteExpediente)
-                                    cy.get('#soporteexpediente115_input').should('not.have.value', valorNulo)
-                                    
+                                    cy.get('#soporteexpediente115_input').should('not.have.value', vacio)
+
                                     //cy.get('#ubicaciónfísicaarchivodegestión_input').focus()
                                     //#endregion                                        
 
@@ -158,7 +158,7 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
                                     cy.wait(1000)
                                     cy.get('#origendocumento125_input').type(origenDocumento)
                                     cy.get('#origendocumento125_input').should('have.value', valorOrigenDocumento)
-                                    
+
                                     //Validar fecha futura
                                     cy.get('#fechadecreacióndedocumento_input').focus()
                                     cy.wait(1000)
@@ -166,7 +166,7 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
                                     cy.get('[type="button"]').contains('OK').click()
 
                                     cy.get('[value="Guardar"]').should('be.disabled')
-                                    
+
                                     //Validar fecha actual
                                     cy.get('#fechadecreacióndedocumento_input').clear()
                                     cy.wait(1000)
@@ -177,21 +177,29 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
 
                                     cy.wait(1000)
                                     cy.get('#nombredocumento_input').type(nombreDocumento)
-                                    cy.get('#nombredocumento_input').should('not.have.value', valorNulo)
+                                    cy.get('#nombredocumento_input').should('not.have.value', vacio)
+
+                                    cy.get('#descripcióndocumento_input').type(descripcionDocumento)
+                                    cy.get('#descripcióndocumento_input').should('not.have.value', vacio)
+
+                                    cy.wait(8000)
                                     //#endregion
 
-                                    //Enviar el formulario
+                                    //#region Enviar el formulario
                                     cy.get('[value="Guardar"]').click()
-                                    cy.wait(5000)
+                                    //#endregion
                                 })
                         })
                     })
                 })
         })
-        //cy.get('.dialog-button').contains('No').click()
-        //cy.wait(3000)
+        //#region Cierre de sesión
+        cy.wait(5000)
+        cy.get('.dialog-button').contains('No').click()
+        cy.wait(1000)
         cy.get('#realNameDiv').click()
         cy.contains('Logout').click()
         cy.get('button').contains('Log Out').click()
+        //#endregion
     })
 })
