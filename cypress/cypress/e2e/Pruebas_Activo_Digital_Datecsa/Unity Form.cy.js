@@ -67,6 +67,8 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
                                     const subserie = 'DERECHOS DE PETICION'
                                     const valorSubserie = 'DERECHOS DE PETICION'
 
+                                    const subserieIncorrecta = 'DERECHOS DE PETICION 1'
+
                                     const fecha = new Date();
                                     const añoActual = fecha.getFullYear()
 
@@ -91,8 +93,8 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
                                     const vacio = ''
                                     //#endregion
 
-                                    //#region Valida sección Datos TRD
-                                    cy.log('Pruebas de sección Datos TRD')
+                                    //#region Valida sección Datos TRD con datos incorrectos
+                                    cy.log('Pruebas de sección Datos TRD con datos incorrectos')
 
                                     cy.get('#empresatrd100_input').type(empresa)
                                     cy.get('#empresatrd100_input').should('have.value', valorEmpresa)
@@ -112,12 +114,50 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
                                     cy.get('#nombredeserie_input').type(serie)
                                     cy.get('#nombredeserie_input').should('have.value', valorSerie)
 
+                                    //Valida que botón Guardar esté deshabilitado por subserie incorrecta
+                                    cy.get('#nombredesubserie_input').focus()
+                                    cy.wait(1000)
+                                    cy.get('#nombredesubserie_input').type(subserieIncorrecta)
+
+                                    cy.get('#empresatrd100_input').focus()
+                                    cy.wait(1000)
+
+                                    cy.get('[value="Guardar"]').should('be.disabled')
+
+                                    cy.get('[value="Limpiar"]').click()
+                                    //#endregion
+
+                                    //#region Valida sección Datos TRD con datos correctos
+                                    cy.log('Pruebas de sección Datos TRD con datos correctos')
+
+                                    cy.get('#empresatrd100_input').type(empresa)
+                                    cy.get('#empresatrd100_input').should('have.value', valorEmpresa)
+
+                                    cy.get('#versióntrd111_input').focus()
+                                    cy.wait(1000)
+                                    cy.get('#versióntrd111_input').type(version_Tomo)
+                                    cy.get('#versióntrd111_input').should('have.value', valorVersion_Tomo)
+
+                                    cy.get('#nombreunidaddependencia_input').focus()
+                                    cy.wait(1000)
+                                    cy.get('#nombreunidaddependencia_input').type(unidadProductora)
+                                    cy.get('#nombreunidaddependencia_input').should('have.value', valorunidadProductora)
+
+                                    cy.get('#nombredeserie_input').focus()
+                                    cy.wait(1000)
+                                    cy.get('#nombredeserie_input').type(serie)
+                                    cy.get('#nombredeserie_input').should('have.value', valorSerie)
+
+                                    //Valida que botón Guardar esté habilitado por subserie correcta
                                     cy.get('#nombredesubserie_input').focus()
                                     cy.wait(1000)
                                     cy.get('#nombredesubserie_input').type(subserie)
                                     cy.get('#nombredesubserie_input').should('have.value', valorSubserie)
 
-                                    //cy.get('[value="Limpiar"]').click()
+                                    cy.get('#empresatrd100_input').focus()
+                                    cy.wait(1000)
+
+                                    cy.get('[value="Guardar"]').should('be.enabled')
                                     //#endregion
 
                                     //#region Valida sección Datos del Expediente
@@ -194,8 +234,8 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
                 })
         })
         //#region Cierre de sesión
-        cy.wait(5000)
-        cy.get('.dialog-button').contains('No').click()
+        //cy.wait(5000)
+        //cy.get('.dialog-button').contains('No').click()
         cy.wait(1000)
         cy.get('#realNameDiv').click()
         cy.contains('Logout').click()
