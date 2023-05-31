@@ -86,7 +86,7 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
 
                                     const nombreDocumento = 'DERECHO 1'
 
-                                    const descripcionDocumento = 'Prueba automatizada'
+                                    const descripcionDocumento = 'PRUEBA AUTOMATIZADA'
 
                                     const vacio = ''
                                     //#endregion
