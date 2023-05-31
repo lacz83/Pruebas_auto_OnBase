@@ -39,8 +39,6 @@ describe('Validación Formulario Indexación a TRD - V2', () => {
 
     it.only('Validar Formulario Indexación a TRD - V2', () => {
         cy.wait(4000)
-        cy.log('Se inician las pruebas en la sección Datos de TRD')
-        /**/
         cy.get('#frmViewer').then(($iframe) => {
             const $body = $iframe.contents().find('body')
             cy.
